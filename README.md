@@ -1,9 +1,9 @@
 <div align="center">
 
 # Verum Intelligence
-## Unified Platform dev info (Frontend + Backend)
+## Product and Implementation Overview (Frontend + Backend)
 
-**Premium GCC regulatory intelligence workspace - unified technical reference for FE and BE.**
+**Premium GCC regulatory intelligence workspace - client-facing technical overview of the current build state.**
 
 [![Repository](https://img.shields.io/badge/Repository-Verum_Intelligence-0B1220?style=flat-square&logo=github)](https://github.com)
 [![Architecture](https://img.shields.io/badge/Architecture-Next.js_%2B_Fastify-1F2937?style=flat-square)](#unified-tech-stack-and-runtime-services)
@@ -31,7 +31,7 @@ This document unifies the current implementation reality across:
 - `verum_FE` (Next.js frontend)
 - `verum_BE` (Fastify backend)
 
-It is intentionally explicit and conservative: **Module 1 (AI Query Interface) is the only fully operational end-to-end module right now**. Other module surfaces are scaffolded, staged, or demo-aligned depending on route.
+It is intentionally explicit and conservative: **Module 1 (AI Query Interface) is the only fully operational end-to-end module at this stage**. The remaining product surfaces are designed, structurally prepared, and aligned for implementation, but are not yet live modules.
 
 ---
 
@@ -39,6 +39,7 @@ It is intentionally explicit and conservative: **Module 1 (AI Query Interface) i
 
 - [Overview](#overview)
 - [Current Implementation Status](#current-implementation-status)
+- [Why the Current Delivery Focus Matters](#why-the-current-delivery-focus-matters)
 - [Module 1 - AI Query Interface (Operational Core)](#module-1---ai-query-interface-operational-core)
 - [How Module 1 Works (Live Flow)](#how-module-1-works-live-flow)
 - [Active Jurisdiction Coverage](#active-jurisdiction-coverage)
@@ -53,17 +54,23 @@ It is intentionally explicit and conservative: **Module 1 (AI Query Interface) i
 ## Overview
 
 **Verum Intelligence** is a premium GCC regulatory intelligence workspace.  
-Current practical delivery is centered on one live nucleus:
+For the current delivery phase, development has been intentionally focused on the single most critical product module: the **AI Query Interface**.
 
-- **Operational now:** Module 1 - AI Query Interface (`/query` -> `POST /v1/query`)
-- **Staged/scaffolded:** Dashboard, Comparison, Toolkit, Auth, Workspace, Profile
+### Current implementation status
 
-This architecture follows the product direction defined in `PROJECT_SPEC.md` and `MODULE_1_AI_QUERY.md`:
+- **Operational now:** **Module 1 - AI Query Interface** (`/query` -> `POST /v1/query`)
+- **Designed and ready for functional development upon project approval:** Dashboard, Comparison, Toolkit, Auth, Workspace, and Profile
+
+This means the present build does **not** attempt to claim full operational parity across all product surfaces. Instead, it deliberately demonstrates the most important module **end-to-end** as the live functional core of the product for this delivery phase.
+
+The current implementation follows the product direction defined in `PROJECT_SPEC.md` and `MODULE_1_AI_QUERY.md`:
 
 - source-backed query first
-- grounded retrieval + citations
+- grounded retrieval and visible citations
 - clear module boundaries
 - disciplined, low-inflation architecture
+
+The remaining modules are already resolved at the product-design and interface-architecture level, and are ready to move into functional implementation if the project is formally approved.
 
 ---
 
@@ -71,19 +78,36 @@ This architecture follows the product direction defined in `PROJECT_SPEC.md` and
 
 | Surface | Status | Notes |
 |---|---|---|
-| AI Query Interface | **Operational end-to-end** | Live FE/BE flow with retrieval, grounding, synthesis, citations, explicit statuses |
-| Compliance Dashboard | Scaffolded / mockup-aligned | Route and UI shell exist; backend intelligence staged |
-| Framework Comparison | Scaffolded / mockup-aligned | Route and UI shell exist; normalized comparison logic staged |
-| Market Entry Toolkit | Scaffolded / mockup-aligned | Route and UI shell exist; full backend-backed guidance staged |
-| Auth | Demo-phase aligned | Honest placeholder flow; production auth rollout staged |
-| Workspace | Scaffolded / mockup-aligned | Shell exists; full continuity behavior staged |
-| Profile | Scaffolded / mockup-aligned | Shell exists; production profile workflows staged |
+| AI Query Interface | **Operational end-to-end** | Live FE/BE flow with retrieval, grounding, synthesis, citations, and explicit statuses |
+| Compliance Dashboard | Scaffolded / mockup-aligned | Route and UI shell exist; backend intelligence layer remains staged |
+| Framework Comparison | Scaffolded / mockup-aligned | Route and UI shell exist; normalized comparison logic remains staged |
+| Market Entry Toolkit | Scaffolded / mockup-aligned | Route and UI shell exist; full backend-backed guidance remains staged |
+| Auth | Demo-phase aligned | Honest placeholder access flow; production auth rollout remains staged |
+| Workspace | Scaffolded / mockup-aligned | Shell exists; full continuity and persistence behavior remains staged |
+| Profile | Scaffolded / mockup-aligned | Shell exists; production profile workflows remain staged |
+
+---
+
+## Why the Current Delivery Focus Matters
+
+The present build intentionally demonstrates the highest-value and highest-risk module first.
+
+Instead of distributing effort thinly across multiple incomplete product surfaces, the implementation has been concentrated on the one module that most directly proves the technical and product thesis of Verum Intelligence:
+
+- natural-language regulatory query
+- jurisdiction-aware retrieval
+- source-backed grounding
+- structured answer generation
+- visible citations
+- production-oriented runtime controls
+
+This gives the current delivery real weight: it is not a cosmetic interface pass, but a live operational core that proves the most important backend and frontend integration path already works.
 
 ---
 
 ## Module 1 - AI Query Interface (Operational Core)
 
-Module 1 is the live functional core of the current milestone.
+Module 1 is the live functional core of the current delivery.
 
 What is already operational:
 
@@ -104,29 +128,33 @@ What is already operational:
   - `rate_limited`
   - `validation_error`
   - `system_error`
-- Frontend rendering of status semantics + citations
+- Frontend rendering of status semantics and citations
 - Runtime prewarm/readiness hardening for first-run stability
+
+In practical terms, this module already demonstrates the core behavior expected from the first live intelligence surface of the product.
 
 ---
 
 ## How Module 1 Works (Live Flow)
 
-1. User submits a natural-language legal/compliance query from `/query`.
+1. User submits a natural-language legal or compliance query from `/query`.
 2. Optional jurisdiction scope is selected.
-3. Frontend shapes and sends payload to backend `POST /v1/query`.
-4. Backend validates payload and normalizes query input.
-5. Runtime readiness checks/prewarm are evaluated before retrieval.
-6. Guardrails run (Upstash Redis) when enabled.
-7. Retrieval plan is built.
+3. Frontend shapes and sends the request payload to backend `POST /v1/query`.
+4. Backend validates payload shape and normalizes query input.
+5. Runtime readiness checks and prewarm state are evaluated before retrieval proceeds.
+6. Guardrails run when enabled to enforce rate-limit and request dedup behavior.
+7. Retrieval plan is built from normalized input and jurisdiction scope.
 8. Vector retrieval runs in Supabase PostgreSQL via `pgvector`.
-9. Exact/legal keyword retrieval runs in Supabase PostgreSQL full-text/SQL.
-10. Results are merged and ranked.
-11. Grounded context is assembled from retrieved sources.
-12. LLM synthesizes structured output from grounded context only.
-13. Backend attaches citations from source metadata.
-14. Response returns with explicit status semantics.
-15. Frontend renders answer, citations, and result-state UI.
-16. Query persistence/logging runs where configured.
+9. Exact/legal keyword retrieval runs in Supabase PostgreSQL full-text and SQL/RPC paths.
+10. Retrieval results are merged and ranked into a grounded candidate set.
+11. Grounded context is assembled from retrieved source material only.
+12. LLM synthesis generates structured output from grounded context only.
+13. Backend attaches citations from source metadata rather than model-invented references.
+14. Response is returned with explicit result-state semantics.
+15. Frontend renders answer, citations, traceability, and response-state UI.
+16. Query logging and persistence run where configured and applicable.
+
+This is the live operational flow currently demonstrated in the build.
 
 ---
 
@@ -137,7 +165,9 @@ Current active corpus depth for live Module 1 retrieval is focused on:
 - **DIFC / DFSA**
 - **ADGM / FSRA**
 
-Planned expansion to QFC and KSA depends on extending ingestion/extraction/source normalization/retrieval coverage in backend pipelines.
+Planned expansion to QFC and KSA depends on extending ingestion, extraction, source normalization, and retrieval coverage in backend pipelines.
+
+The next scale step is therefore **not** rebuilding Module 1 from scratch, but expanding the source and ingestion engine across the remaining target jurisdictions.
 
 ---
 
@@ -145,19 +175,19 @@ Planned expansion to QFC and KSA depends on extending ingestion/extraction/sourc
 
 | Layer | Technology / Service | Used In | Why it exists | Current runtime function |
 |---|---|---|---|---|
-| Frontend framework | Next.js 15 | FE | App Router + production route composition | Marketing + product shell routes |
-| UI runtime | React 19 | FE | Component/state model | Query UI + module shells |
+| Frontend framework | Next.js 15 | FE | App Router and production route composition | Marketing and product shell routes |
+| UI runtime | React 19 | FE | Component and state model | Query UI and staged module shells |
 | Styling | Tailwind CSS 3.4 | FE | Tokenized, maintainable styling | Premium interface system |
-| API server | Fastify 5 | BE | Lean, explicit, high-performance API | Hosts `/health`, `/v1/query`, staged routes |
+| API server | Fastify 5 | BE | Lean, explicit, high-performance API | Hosts `/health`, `/v1/query`, and staged module routes |
 | Language | TypeScript 5.8 | FE + BE | Type-safe contracts and maintainability | Shared correctness across boundaries |
-| Validation | Zod 3 | BE | Contract-safe parsing | Query request/response enforcement |
-| Database platform | **Supabase / PostgreSQL** | BE core | Managed relational system of record | Stores corpus, chunks, citations, logs, saved query records |
+| Validation | Zod 3 | BE | Contract-safe parsing | Query request and response enforcement |
+| Database platform | **Supabase / PostgreSQL** | BE core | Managed relational system of record | Stores corpus, chunks, citations, logs, and saved-query records |
 | Vector retrieval | **pgvector (inside PostgreSQL)** | BE core | Semantic retrieval without separate vector vendor | Nearest-neighbor chunk retrieval for Module 1 |
 | Exact retrieval | PostgreSQL full-text + SQL/RPC | BE core | Legal-term and exact-match recovery | Keyword branch in hybrid retrieval |
-| LLM + embeddings | OpenAI API | BE core | Embeddings + grounded synthesis | Structured query answer generation |
-| Guardrails store | **Upstash Redis** | BE core | Fast ephemeral control plane | Rate-limit + dedup for query safety |
-| FE auth/session SDK | Supabase JS | FE | Auth/session client primitives | Demo/staged auth plumbing in current phase |
-| Build tooling | tsx + tsup + npm | FE + BE | Fast local dev + production builds | Dev servers and deploy artifacts |
+| LLM + embeddings | OpenAI API | BE core | Embeddings and grounded synthesis | Structured answer generation for Module 1 |
+| Guardrails store | **Upstash Redis** | BE core | Fast ephemeral control plane | Rate-limit and dedup for query safety |
+| FE auth/session SDK | Supabase JS | FE | Auth and session client primitives | Demo and staged auth plumbing in current phase |
+| Build tooling | tsx + tsup + npm | FE + BE | Fast local dev and production builds | Dev servers and deploy artifacts |
 
 ### Supabase and Upstash Roles (Explicit)
 
@@ -166,10 +196,11 @@ Planned expansion to QFC and KSA depends on extending ingestion/extraction/sourc
   - Chunked retrieval corpus
   - Query logs and citations
   - Persistence supporting Module 1 behavior
+
 - **Upstash Redis is the guardrails state layer.**
   - Rate-limit counters
   - Dedup windows
-  - Ephemeral safety controls (not the system of record)
+  - Ephemeral safety controls rather than durable product storage
 
 ---
 
@@ -198,7 +229,7 @@ Planned expansion to QFC and KSA depends on extending ingestion/extraction/sourc
 | `GET /api/dashboard` | Scaffolded / placeholder | Staged module route |
 | `GET /api/comparison` | Scaffolded / placeholder | Staged module route |
 | `GET /api/toolkit` | Scaffolded / placeholder | Staged module route |
-| `POST /api/auth/*` | Scaffolded / planned | Production auth still staged |
+| `POST /api/auth/*` | Scaffolded / planned | Production auth remains staged |
 | `GET /api/workspace` | Scaffolded / placeholder | Staged module route |
 | `GET /api/profile` | Scaffolded / placeholder | Staged module route |
 
@@ -208,7 +239,7 @@ Planned expansion to QFC and KSA depends on extending ingestion/extraction/sourc
 
 ### Prerequisites
 
-- Node.js 22.x recommended (backend target)
+- Node.js 22.x recommended
 - npm 9.x or higher
 - Supabase project
 - OpenAI API key
@@ -283,8 +314,8 @@ QUERY_PREWARM_EMBEDDING_ENABLED=true
 
 Security rule:
 
-- Never commit real secrets.
-- Keep only template/example env files in version control.
+- Never commit real secrets
+- Keep only template and example env files in version control
 
 ---
 
@@ -292,10 +323,10 @@ Security rule:
 
 ### `verum_FE` owns
 
-- Full landing page and full product skin + route UX UI
+- Full landing page and product skin route UX UI
 - Query page rendering and state semantics
 - Typed client integration with backend contracts
-- Demo/staged auth entry flow (current phase)
+- Demo and staged auth entry flow in the current phase
 
 ### `verum_BE` owns
 
@@ -303,7 +334,7 @@ Security rule:
 - Grounding, synthesis, and citations
 - Supabase/PostgreSQL persistence and retrieval logic
 - Upstash guardrails behavior
-- Runtime readiness/prewarm controls
+- Runtime readiness and prewarm controls
 
 Delivery standard for current phase:
 
@@ -311,4 +342,5 @@ Delivery standard for current phase:
 - explicit status semantics
 - source-backed outputs
 - no fake parity claims for non-operational modules
-- incremental expansion from Module 1 into remaining jurisdictions/modules
+- incremental expansion from Module 1 into remaining jurisdictions and modules
+- implementation discipline over architectural theater
