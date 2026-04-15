@@ -292,7 +292,7 @@ Security rule:
 
 ### `verum_FE` owns
 
-- Marketing and product route UX
+- Full landing page and full product skin + route UX UI
 - Query page rendering and state semantics
 - Typed client integration with backend contracts
 - Demo/staged auth entry flow (current phase)
