@@ -1,4 +1,30 @@
-# Verum Intelligence - Unified README (Frontend + Backend)
+<div align="center">
+
+# Verum Intelligence
+## Unified Platform README (Frontend + Backend)
+
+**Premium GCC regulatory intelligence workspace - unified technical reference for FE and BE.**
+
+[![Repository](https://img.shields.io/badge/Repository-Verum_Intelligence-0B1220?style=flat-square&logo=github)](https://github.com)
+[![Architecture](https://img.shields.io/badge/Architecture-Next.js_%2B_Fastify-1F2937?style=flat-square)](#unified-tech-stack-and-runtime-services)
+[![Status](https://img.shields.io/badge/Module_1-Live_Operational-0A7F3F?style=flat-square)](#module-1---ai-query-interface-operational-core)
+[![License](https://img.shields.io/badge/License-Private-red?style=flat-square)](./LICENSE)
+
+### Frontend Stack
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+
+### Backend Stack
+[![Fastify](https://img.shields.io/badge/Fastify-5.x-000000?style=flat-square&logo=fastify)](https://fastify.dev)
+[![Node.js](https://img.shields.io/badge/Node.js-22-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org)
+[![Zod](https://img.shields.io/badge/Zod-3.x-3E67B1?style=flat-square)](https://zod.dev)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL_%2B_Auth-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com)
+[![Upstash](https://img.shields.io/badge/Upstash-Redis_Guardrails-00E9A3?style=flat-square)](https://upstash.com)
+[![OpenAI](https://img.shields.io/badge/OpenAI-Responses_%2B_Embeddings-412991?style=flat-square&logo=openai&logoColor=white)](https://platform.openai.com)
+
+</div>
 
 This document unifies the current implementation reality across:
 
