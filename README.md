@@ -1,7 +1,7 @@
 <div align="center">
 
 # Verum Intelligence
-## Unified Platform README (Frontend + Backend)
+## Unified Platform dev info (Frontend + Backend)
 
 **Premium GCC regulatory intelligence workspace - unified technical reference for FE and BE.**
 
